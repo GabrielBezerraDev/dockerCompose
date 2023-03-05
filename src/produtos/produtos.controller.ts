@@ -18,6 +18,11 @@ export class ProdutosController {
         return this.produtoService.buscarProduto(id);
     }
 
+    @Post('buscarvarios')
+    async buscarVariosProdutos(@Body() body:{ termo:string }): Promise<ProdutoEntity[]> {
+        return this.produtoService.buscarVarios(body.termo);
+    }
+
     @Post()
     async create(@Body() produto:ProdutoEntity): Promise<ProdutoEntity>{
         return this.produtoService.create(produto);

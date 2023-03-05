@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProdutoEntity } from './produto.entity';
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, Like } from 'typeorm'
 
 @Injectable()
 export class ProdutosService {
@@ -16,6 +16,14 @@ export class ProdutosService {
 
     async buscarProduto(id:number): Promise<ProdutoEntity> {
         return this.produtoRepository.findOneBy({ id });
+    }
+
+    async buscarVarios(termo:string): Promise<ProdutoEntity[]> {
+        return this.produtoRepository.find({
+            where: {
+                nome: Like(`%${termo}%`)
+            }
+        });
     }
 
     async create(produto:ProdutoEntity): Promise<ProdutoEntity> {
