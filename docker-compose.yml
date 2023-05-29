@@ -11,7 +11,13 @@ services:
     environment:
       MYSQL_DATABASE: produto
       MYSQL_ROOT_PASSWORD: password
-
+  minha-app:
+    restart: unless-stopped
+    build:
+      context:  .
+      dockerfile: dockerfile
+    ports:
+    - "9090:9090"
   adminer:
     image: phpmyadmin:latest
     container_name: admin
